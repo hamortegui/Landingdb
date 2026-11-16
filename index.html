@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Guardianes del Bosque es un juego de cartas estratégico para 2-6 jugadores. Rescata animales, sabotea a tus rivales y alzate con la victoria.">
+<title>Guardianes del Bosque · Juego de cartas</title>
+<!-- FUENTES DE ADOBE: cambia TU_CODIGO por el código de tu proyecto web de Adobe Fonts (Smashing y Tosh A) -->
+<link rel="stylesheet" href="https://use.typekit.net/TU_CODIGO.css">
+<!-- Respaldo mientras cargan las de Adobe; puedes borrar estas 3 líneas cuando todo funcione -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Todo se mide en cqw (1cqw = 1% del ancho de la página) para que escale igual que tu diseño */
+:root{--nav:#0a2c5a;--rosa:#b94e6a;--verde:#3c7639;--papel:#e5d7bc;--cafe:#3c2c0b;--crema:#ece1a3;--oliva:#786835;--oscuro:#251a06;--t:'smashing','Londrina Solid',Impact,sans-serif;--c:'tosh-a','Lexend',Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-synthesis:none;background:var(--oscuro);font-family:var(--c);color:#fff}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid #ffd84d;outline-offset:3px}
+.pagina{container-type:inline-size;max-width:760px;margin:0 auto;position:relative;overflow:hidden;background:var(--crema)}
+h1,h2{font-family:var(--t);font-weight:400;text-transform:uppercase;line-height:1.05;color:#fff;letter-spacing:.02em}
+.abs{position:absolute}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;color:#fff;font-weight:600;text-decoration:none;transition:transform .2s,filter .2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.15)}
+
+/* Encabezado */
+header{position:absolute;top:0;left:0;right:0;z-index:20;height:max(9.4cqw,56px);background:var(--nav);display:flex;align-items:center;justify-content:space-between;padding:0 1.7cqw}
+header .logo{width:max(7cqw,44px);height:max(7cqw,44px);border-radius:50%}
+.avatares{display:flex;gap:2cqw;align-items:center;min-height:44px}
+.avatares img{width:5.4cqw;min-width:20px;height:auto;border-radius:50%}
+header .btn{background:#b7506d;border:2px solid #d37d97;border-radius:1cqw;padding:0 2cqw;font-size:max(1.9cqw,10px)}
+
+/* Bienvenida */
+.hero{position:relative;height:70cqw;background:linear-gradient(#0a2c5a,#010a14) center/cover;background-image:url(img/fondo-bosque.jpg),linear-gradient(#0a2c5a,#010a14);background-size:cover}
+.hero h1{position:absolute;right:6cqw;top:27cqw;text-align:right;font-size:7.6cqw;line-height:1;text-shadow:.35cqw .35cqw 0 #000,-.3cqw -.3cqw 0 #000,.35cqw -.3cqw 0 #000,-.3cqw .35cqw 0 #000}
+.mago1{position:absolute;left:1cqw;top:15.5cqw;width:44cqw}
+.est1{position:absolute;left:28cqw;top:11cqw;width:9cqw;z-index:3}.est2{position:absolute;left:3cqw;top:51cqw;width:8cqw;z-index:3}
+
+/* Rosa */
+.rosa{position:relative;z-index:2;height:146cqw;margin-top:-6cqw;background:linear-gradient(transparent 95%,var(--verde) 95%)}
+.rosa::before{content:"";position:absolute;left:0;top:-10.5cqw;width:100%;height:160.5cqw;background:url(img/fondo-rosa.png) 0 0/100% 100% no-repeat}
+.logo-j{left:31cqw;top:4.3cqw;width:35.5cqw}
+.mons1{left:69cqw;top:2.5cqw;width:14cqw}
+.caja{left:0;top:22cqw;width:58.5cqw;max-width:none}
+.desc{left:58cqw;top:22cqw;width:38cqw;text-align:center;font-size:2.5cqw;line-height:1.38;font-weight:400}
+.ic-t{left:67cqw;top:63cqw;width:9.3cqw}.ic-e{left:79.5cqw;top:63cqw;width:9cqw}
+.m-a{left:11cqw;top:73.5cqw;width:13.5cqw}.m-b{left:25.7cqw;top:68cqw;width:7.5cqw}.m-c{left:23cqw;top:86.5cqw;width:7cqw}
+.ya{left:3cqw;top:92cqw;font-size:6.3cqw;line-height:1.05}
+.rosa .btn.compra{left:3.3cqw;top:110cqw;width:40.5cqw;height:9.3cqw;background:var(--nav);border-radius:1.7cqw;font-size:3.4cqw;font-weight:600}
+.mago2{left:47cqw;top:76cqw;width:50cqw;max-width:none}
+
+/* Libreta */
+.listo{position:relative;background:var(--verde) url(img/libreta.png) top center/cover no-repeat;padding-top:5.5cqw}
+.listo h2{white-space:nowrap;font-size:5.1cqw;padding:2cqw 0 3.8cqw 6cqw;text-shadow:.3cqw .3cqw 0 #1c3d1a}
+.papel{position:relative;color:var(--cafe);padding:7cqw 4cqw 0 9.5cqw;overflow:hidden}
+.papel p{font-size:2.9cqw;line-height:1.35;text-align:center;margin-bottom:2.5cqw}
+.papel p b{font-weight:600}
+.papel img{width:calc(100% + 13.5cqw);max-width:none;margin-left:-9.5cqw}
+
+/* Bandas con título */
+.banda{position:relative;background:var(--verde);text-align:center;border-bottom:.6cqw dashed #2a4d28;border-top:.6cqw dashed #2a4d28}
+.b-fases{height:19cqw;padding-top:5.5cqw;font-size:5.4cqw;white-space:nowrap}
+.b-tipos{height:31.5cqw;padding-top:19cqw;font-size:5.4cqw;white-space:nowrap}
+
+/* Fases */
+.fases{position:relative}
+.cols{position:relative;overflow:hidden;display:grid;grid-template-columns:repeat(4,1fr);height:76cqw}
+.col{display:flex;flex-direction:column;align-items:center;gap:2cqw;text-align:center}
+.col img{width:14cqw}
+.col span{font-family:var(--t);font-weight:400;text-transform:uppercase;font-size:3.6cqw;color:#fff;text-shadow:.3cqw .3cqw 0 rgba(0,0,0,.35)}
+.col:nth-child(1){background:#aebd5e;padding-top:2cqw}
+.col:nth-child(2){background:#6e8898;padding-top:19.5cqw}
+.col:nth-child(3){background:#e5a04e;padding-top:36.7cqw}
+.col:nth-child(4){background:#7a4a77;padding-top:54cqw}
+.blob{width:22.5cqw;left:36.5cqw;z-index:4}
+.bl1{top:-6cqw}.bl2{top:-3.6cqw}
+.rana{left:0;top:31cqw;width:25cqw}.manati{left:25.5cqw;top:43cqw;width:25cqw}
+.pez{left:50cqw;top:56cqw;width:25cqw}.orni{left:84cqw;top:6.7cqw;width:16cqw}
+.cols>img{position:absolute;z-index:3;max-width:none}
+
+/* Tipos */
+.tipos{background:var(--cafe)}
+.fila{display:grid;grid-template-columns:1fr 1fr;padding:3cqw 0 4.5cqw;text-align:center}
+.fila+.fila{border-top:2cqw solid var(--crema);box-shadow:inset 0 .6cqw 0 -0px var(--cafe)}
+.fila img{width:32cqw;margin:.8cqw auto 2cqw;border-radius:50%;outline:.5cqw dotted #f0e2a0;outline-offset:.9cqw}
+.fila figcaption{font-family:var(--t);font-weight:400;text-transform:uppercase;font-size:3.4cqw}
+.g1{color:#7ad13f}.g2{color:#e9962c}.g3{color:#b48fe0}.g4{color:#2fc2e3}
+.tipos::before{content:"";display:block;height:2cqw;background:var(--crema)}
+
+/* Corbata */
+.corbata{background:var(--crema);padding-top:0}
+.corbata img{width:100%}
+
+/* Campistas */
+.b-camp{background:var(--oliva);text-align:left;padding:5cqw 8.5cqw 5.5cqw;font-size:7.1cqw;line-height:1.1;border-top:0;border-bottom:.6cqw dashed var(--crema)}
+.camp{background:var(--crema);padding:3.5cqw 3.5cqw 4cqw}
+.grid{background:var(--oliva);border:.6cqw dashed #3c3010;border-radius:5.7cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:3cqw 0;padding:4.5cqw 1cqw 2cqw;text-align:center}
+.grid img{width:23.5cqw;margin:0 auto 1.4cqw;border-radius:50%}
+.grid figcaption{font-family:var(--t);font-weight:400;text-transform:uppercase;font-size:3.4cqw}
+.n1{color:#b48fe0}.n2{color:#6fb0e0}.n3{color:#e07cc8}.n4{color:#e86a82}.n5{color:#e0902a}.n6{color:#b8b070}
+.iconos{grid-column:1/-1;display:flex;justify-content:center;gap:2cqw;padding-top:1cqw}
+.iconos img{width:6cqw;margin:0}
+
+/* Secretos y cierre */
+.b-sec{background:var(--oscuro);height:15.7cqw;padding-top:4.5cqw;font-size:4.3cqw;white-space:nowrap;border-top:.6cqw dashed var(--crema);border-bottom:.6cqw dashed var(--crema)}
+.sec-img{position:relative;background:var(--crema);margin-bottom:0}
+.sec-img>img{width:100%;aspect-ratio:700/340;object-fit:cover;object-position:center top}
+.btn.desc-btn{position:absolute;left:50%;transform:translateX(-50%);bottom:-7.5cqw;z-index:5;width:44.7cqw;height:11.4cqw;background:var(--verde);border:.5cqw dashed #9bc79a;border-radius:1.5cqw;font-size:3.9cqw}
+.btn.desc-btn:hover{transform:translateX(-50%) translateY(-2px)}
+.cierre{background:var(--oscuro);padding-top:12cqw}
+.cierre h2{text-align:center;white-space:nowrap;font-size:3.9cqw;height:8cqw;border-bottom:.6cqw dashed var(--crema);padding-bottom:1.5cqw}
+.cierre img{width:100%;aspect-ratio:700/430;object-fit:cover;object-position:center 75%}
+footer{position:relative;background:#ca2a66;border-top:1.2cqw solid #e8619a;height:21.5cqw}
+.redes{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:space-around;padding:3.4cqw 3cqw 0}
+.redes a{display:flex;align-items:center;justify-content:center;width:max(9cqw,44px);height:max(9cqw,44px);margin-top:2.4cqw;transition:transform .2s}
+.redes a:hover{transform:scale(1.12)}
+.redes img{width:3.8cqw;min-width:22px}
+.redes a.pato{width:14.7cqw;height:14.7cqw;margin-top:-1.2cqw;background:#fff;border-radius:50%}
+.redes .pato img{width:100%;border-radius:50%}
+footer small{position:absolute;left:0;right:0;bottom:.8cqw;text-align:center;font-size:1.9cqw;font-weight:600}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="pagina">
+
+<header>
+  <a href="#inicio" aria-label="Pato en un Zapato, ir al inicio"><img class="logo" src="img/logo-pato.png" width="216" height="216" alt="Logo de Pato en un Zapato"></a>
+  <a class="avatares" href="#campistas" aria-label="Conocer a los campistas">
+    <img src="img/icono-1.png" width="94" height="94" alt=""><img src="img/icono-2.png" width="94" height="94" alt=""><img src="img/icono-3.png" width="94" height="94" alt="">
+    <img src="img/icono-4.png" width="94" height="94" alt=""><img src="img/icono-5.png" width="94" height="94" alt=""><img src="img/icono-6.png" width="102" height="102" alt="">
+  </a>
+  <a class="btn" href="#comprar">Cómpralo aqui</a>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <img class="mago1" src="img/mago-1.png" width="615" height="530" alt="Pequeño mago con sombrero azul y estrellas">
+    <img class="est1" src="img/star-1.png" width="174" height="202" alt="">
+    <img class="est2" src="img/star-2.png" width="146" height="138" alt="">
+    <h1>Bienvenido<br>Guardian!!</h1>
+  </section>
+
+  <section class="rosa" id="comprar">
+    <img class="abs logo-j" src="img/logo-guardianes.png" width="520" height="244" alt="Logo de Guardianes del Bosque">
+    <img class="abs mons1" src="img/monstruo-1.png" width="230" height="243" alt="">
+    <img class="abs caja" src="img/caja-juego.png" width="859" height="544" alt="Caja del juego con cartas, fichas y tableros desplegados">
+    <p class="abs desc">Guardianes del Bosque es un juego de cartas estratégico para 2-6 jugadores<br>en el que, como jóvenes exploradores, rescataras animales activaras habilidades únicas y sabotearas a tus rivales en cuatro fases dinámicas para reunir insignias y alzarte con la victoria.</p>
+    <img class="abs ic-t" src="img/icono-tiempo.png" width="126" height="156" alt="Duración de 30 a 90 minutos">
+    <img class="abs ic-e" src="img/icono-edad.png" width="130" height="139" alt="Edad recomendada 12 años o más">
+    <img class="abs m-a" src="img/monstruo-2.png" width="229" height="242" alt="">
+    <img class="abs m-b" src="img/monstruo-3.png" width="119" height="126" alt="">
+    <img class="abs m-c" src="img/monstruo-4.png" width="119" height="126" alt="">
+    <h2 class="abs ya">Ya<br>disponible!</h2>
+    <a class="abs btn compra" href="#" target="_blank" rel="noopener">Adquierelo aqui</a>
+    <img class="abs mago2" src="img/mago-2.png" width="640" height="761" alt="Mago pensativo con sombrero azul">
+  </section>
+
+  <section class="listo">
+    <h2>Estas listo para jugar?</h2>
+    <div class="papel">
+      <p>¡Embárcate en una épica aventura en Sabio Roble! Usa las habilidades de los animales del campamento para sabotear a tus amigos, pero no olvides rescatarlos si quieres reclamar el título de: <b>«Guardián del Bosque»</b>.</p>
+      <img src="img/mesa-jugadores.png" width="1000" height="582" loading="lazy" alt="Exploradores jugando alrededor de una mesa con cartas y fichas">
+    </div>
+  </section>
+
+  <div class="banda b-fases"><h2>4 Fases dinamicas</h2></div>
+  <section class="fases" aria-label="Las cuatro fases del juego">
+    <img class="abs blob bl1" src="img/blob-1.png" width="360" height="316" loading="lazy" alt="">
+    <div class="cols">
+      <div class="col"><img src="img/fase-alba.png" width="219" height="237" loading="lazy" alt="Insignia de la fase Alba"><span>Alba</span></div>
+      <div class="col"><img src="img/fase-mediodia.png" width="220" height="238" loading="lazy" alt="Insignia de la fase Mediodía"><span>Mediodia</span></div>
+      <div class="col"><img src="img/fase-ocaso.png" width="217" height="235" loading="lazy" alt="Insignia de la fase Ocaso"><span>Ocaso</span></div>
+      <div class="col"><img src="img/fase-noche.png" width="217" height="236" loading="lazy" alt="Insignia de la fase Noche"><span>Noche</span></div>
+      <img class="rana" src="img/rana.png" width="360" height="330" loading="lazy" alt="Rana azul">
+      <img class="manati" src="img/manati.png" width="362" height="503" loading="lazy" alt="Manatí morado con una calavera en la cabeza">
+      <img class="pez" src="img/pez.png" width="362" height="215" loading="lazy" alt="Pez naranja de dientes grandes">
+      <img class="orni" src="img/ornitorrinco.png" width="244" height="491" loading="lazy" alt="Ornitorrinco café">
+    </div>
+  </section>
+
+  <div class="banda b-tipos" style="margin-top:0">
+    <img class="abs blob bl2" src="img/blob-2.png" width="360" height="315" loading="lazy" alt="" style="top:-9cqw;left:36.5cqw">
+    <h2>4 Tipos de animales</h2>
+  </div>
+  <section class="tipos" aria-label="Los cuatro tipos de animales">
+    <div class="fila">
+      <figure><img src="img/tipo-reptiles.png" width="400" height="400" loading="lazy" alt="Insignia verde con una hoja"><figcaption class="g1">Reptiles/Anfibios</figcaption></figure>
+      <figure><img src="img/tipo-mamiferos.png" width="400" height="400" loading="lazy" alt="Insignia naranja con una calavera"><figcaption class="g2">Mamiferos</figcaption></figure>
+    </div>
+    <div class="fila">
+      <figure><img src="img/tipo-aves.png" width="400" height="400" loading="lazy" alt="Insignia morada con un ala"><figcaption class="g3">Aves</figcaption></figure>
+      <figure><img src="img/tipo-peces.png" width="400" height="399" loading="lazy" alt="Insignia azul con una espina de pescado"><figcaption class="g4">Peces</figcaption></figure>
+    </div>
+  </section>
+
+  <div class="corbata"><img src="img/corbata.png" width="900" height="618" loading="lazy" alt="Pañoleta de explorador con nudo"></div>
+
+  <h2 class="banda b-camp" id="campistas">Muchos campistas<br>por conocer...</h2>
+  <section class="camp" aria-label="Campistas">
+    <div class="grid">
+      <figure><img src="img/campista-timmy.png" width="345" height="358" loading="lazy" alt="Timmy, explorador pelirrojo con sombrero"><figcaption class="n1">Timmy</figcaption></figure>
+      <figure><img src="img/campista-jimmy.png" width="346" height="358" loading="lazy" alt="Jimmy, explorador con gorro de piel y gesto de enojo"><figcaption class="n2">Jimmy</figcaption></figure>
+      <figure><img src="img/campista-kimmy.png" width="346" height="357" loading="lazy" alt="Kimmy, exploradora con coletas y un foco"><figcaption class="n3">Kimmy</figcaption></figure>
+      <figure><img src="img/campista-gibby.png" width="346" height="357" loading="lazy" alt="Gibby, explorador rubio con un cuervo"><figcaption class="n4">Gibby</figcaption></figure>
+      <figure><img src="img/campista-winny.png" width="346" height="358" loading="lazy" alt="Winny, explorador con frenillos y un dado rojo"><figcaption class="n5">Winny</figcaption></figure>
+      <figure><img src="img/campista-enrique.png" width="345" height="358" loading="lazy" alt="Enrique, explorador mayor con gafas y el pulgar arriba"><figcaption class="n6">Enrique</figcaption></figure>
+      <div class="iconos" aria-hidden="true">
+        <img src="img/icono-1.png" width="94" height="94" alt=""><img src="img/icono-2.png" width="94" height="94" alt=""><img src="img/icono-3.png" width="94" height="94" alt="">
+        <img src="img/icono-4.png" width="94" height="94" alt=""><img src="img/icono-5.png" width="94" height="94" alt=""><img src="img/icono-6.png" width="102" height="102" alt="">
+      </div>
+    </div>
+  </section>
+
+  <div class="banda b-sec"><h2>Y muchos secretos mas...</h2></div>
+  <section class="sec-img">
+    <img src="img/secretos.png" width="960" height="590" loading="lazy" alt="Siluetas misteriosas de criaturas con capucha y una calavera">
+    <a class="btn desc-btn" href="#" target="_blank" rel="noopener">Descubrelos aqui</a>
+  </section>
+
+  <section class="cierre">
+    <h2>Se el nuevo guardian del bosque!</h2>
+    <img src="img/final.jpg" width="700" height="420" loading="lazy" alt="Los exploradores celebran en lo alto de una colina con una bandera roja, rodeados de monstruos rosados">
+  </section>
+</main>
+
+<footer>
+  <div class="redes">
+    <a href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="img/icono-whatsapp.png" width="26" height="26" alt=""></a>
+    <a href="#" target="_blank" rel="noopener" aria-label="Instagram"><img src="img/icono-instagram.png" width="26" height="26" alt=""></a>
+    <a class="pato" href="#inicio" aria-label="Pato en un Zapato, volver al inicio"><img src="img/logo-pato.png" width="216" height="216" alt=""></a>
+    <a href="#" target="_blank" rel="noopener" aria-label="TikTok"><img src="img/icono-tiktok.png" width="26" height="26" alt=""></a>
+    <a href="#" target="_blank" rel="noopener" aria-label="YouTube"><img src="img/icono-youtube.png" width="26" height="26" alt=""></a>
+  </div>
+  <small>© 2026 Pato en un Zapato</small>
+</footer>
+
+</div>
+</body>
+</html>
